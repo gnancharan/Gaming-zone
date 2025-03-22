@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Library</title>
+  <!-- Include Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    /* CSS Styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    #top-banner {
+      background-color: #ff6347;
+      color: #fff;
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 1.2rem;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    header input {
+      padding: 0.5rem;
+      width: 80%;
+      max-width: 400px;
+      border: none;
+      border-radius: 5px;
+    }
+
+    #auth-btn {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #auth-btn:hover {
+      background-color: #218838;
+    }
+
+    #game-list {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1rem;
+    }
+
+    .game-card {
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      margin: 0.5rem 0;
+      padding: 1rem;
+      width: 80%;
+      max-width: 600px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .game-card:hover {
+      transform: scale(1.02);
+    }
+
+    .game-icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    #game-details {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      z-index: 1000;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1001;
+    }
+
+    .modal-content {
+      background-color: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+      text-align: center;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div id="top-banner">
+    <p>Welcome to the Gaming World</p>
+  </div>
+
+  <header>
+    <h1>Gaming Zone</h1>
+    <input type="text" id="search" placeholder="Search games...">
+    <button id="auth-btn">Login / Register</button>
+  </header>
+
+  <main>
+    <section id="game-list">
+      <!-- Games will be dynamically added here -->
+    </section>
+
+    <section id="game-details" class="hidden">
+      <h2 id="game-title"></h2>
+      <p id="game-description"></p>
+      <button id="close-details">Close</button>
+    </section>
+  </main>
+
+  <!-- Authentication Modal -->
+  <div id="auth-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2 id="auth-title">Login</h2>
+      <form id="auth-form">
+        <div id="login-fields">
+          <label for="login-username">Username:</label>
+          <input type="text" id="login-username" name="login-username" required><br>
+          <label for="login-password">Password:</label>
+          <input type="password" id="login-password" name="login-password" required><br>
+        </div>
+        <div id="register-fields" class="hidden">
+          <label for="register-username">Username:</label>
+          <input type="text" id="register-username" name="register-username" required><br>
+          <label for="register-email">Email:</label>
+          <input type="email" id="register-email" name="register-email" required><br>
+          <label for="register-password">Password:</label>
+          <input type="password" id="register-password" name="register-password" required><br>
+        </div>
+        <button type="submit" id="auth-submit-btn">Login</button>
+      </form>
+      <button id="toggle-auth-mode">Don't have an account? Register</button>
+      <button id="close-modal">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const games = [
+      { title: "Super Mario", description: "A classic platformer game.", icon: "fas fa-gamepad" },
+      { title: "The Legend of Zelda", description: "An epic adventure game.", icon: "fas fa-sword" },
+      { title: "Minecraft", description: "A sandbox building game.", icon: "fas fa-cube" },
+      { title: "Fortnite", description: "A popular battle royale game.", icon: "fas fa-shield-alt" },
+      { title: "Among Us", description: "A multiplayer social deduction game.", icon: "fas fa-user-astronaut" },
+    ];
+
+    const gameList = document.getElementById("game-list");
+
+    function displayGames(games) {
+      gameList.innerHTML = "";
+      games.forEach((game) => {
+        const gameCard = document.createElement("div");
+        gameCard.classList.add("game-card");
+        gameCard.innerHTML = `<div class="game-icon"><i class="${game.icon}"></i></div><h3>${game.title}</h3>`;
+        gameList.appendChild(gameCard);
+      });
+    }
+
+    displayGames(games);
+  </script>
+</body>
+</html>
